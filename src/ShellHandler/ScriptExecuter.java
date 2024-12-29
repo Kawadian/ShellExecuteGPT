@@ -1,5 +1,6 @@
+package ShellHandler;
+
 import FileHandler.ScriptMaker;
-import FileHandler.ScriptReader;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,13 +8,13 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class ScriptExecuter {
-    public static void executeScript(String path,String script, boolean forceExecute){
-        if(!forceExecute){
+    public static String executeScript(String path,String script, boolean forceExecute) {
+        if (!forceExecute) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("実行されるコマンドは以下の通りです。");
             System.out.println(script);
             boolean isContinue = false;
-            while(!isContinue) {
+            while (!isContinue) {
                 System.out.println("本当に実行しますか？ y/n");
                 switch (scanner.nextLine().toLowerCase()) {
                     case "y":
@@ -21,7 +22,7 @@ public class ScriptExecuter {
                         continue;
                     case "n":
                         System.out.println("キャンセルされました。");
-                        return;
+                        return "";
                     default:
                         System.out.println("yまたはnを入力してください。");
                 }
@@ -30,6 +31,7 @@ public class ScriptExecuter {
 
         ScriptMaker scriptMaker = new ScriptMaker();
         scriptMaker.makeScript(path, script);
+        String stdOut = null;
         try {
             //スクリプト実行
             ProcessBuilder pb = new ProcessBuilder("bash", path);
@@ -37,19 +39,22 @@ public class ScriptExecuter {
             process.waitFor();
             //エラー出力
             try (BufferedReader buffer = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                System.out.println(buffer.lines().collect(Collectors.joining("\n")));
+                stdOut = buffer.lines().collect(Collectors.joining("\n"));
+                System.out.println(stdOut);
             }
 
             //標準出力
             try (BufferedReader buffer = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                System.out.println(buffer.lines().collect(Collectors.joining("\n")));
+                stdOut = buffer.lines().collect(Collectors.joining("\n"));
+                System.out.println(stdOut);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("スクリプト実行中にエラーが発生しました" + e
             );
-        }finally {
+        } finally {
             scriptMaker.removeScript(path);
         }
+        return stdOut;
     }
 }
