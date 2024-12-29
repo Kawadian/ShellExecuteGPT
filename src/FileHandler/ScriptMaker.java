@@ -13,7 +13,6 @@ public class ScriptMaker {
         try {
             if (!(Files.exists(path))) {
                 Files.createFile(path);
-                System.out.println("ファイルを作成しました: " + path.toAbsolutePath());
             }
         } catch (Exception e) {
             System.out.println("ファイルの作成中にエラーが発生しました: " + e.getMessage());
