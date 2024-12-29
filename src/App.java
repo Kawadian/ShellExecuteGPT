@@ -1,8 +1,6 @@
 
 import Model.ExecutionHistory;
-import OpenaiMessageHandler.MessageManager;
 import OpenaiMessageHandler.OpenaiRequester;
-import ShellHandler.ScriptExecuter;
 import ShellHandler.ShellHistoryManager;
 
 import java.util.ArrayList;

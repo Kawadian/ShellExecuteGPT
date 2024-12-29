@@ -13,7 +13,6 @@ public class ShellHistoryManager {
             OpenaiRequester openaiRequester = new OpenaiRequester();
             String openaiText = openaiRequester.requestOpenai(executionHistoryList, apiKey);
             if(openaiText.contains("exit")){
-                isExit = true;
                 return executionHistoryList;
             }
             String stdOut = "";
