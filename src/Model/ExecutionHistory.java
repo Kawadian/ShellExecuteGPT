@@ -2,21 +2,31 @@ package Model;
 
 public class ExecutionHistory {
 
-    private String userPrompt;
+    private String role;
+    private String prompt;
     private String command;
     private String executeResultLog;
-    public ExecutionHistory(String userPrompt, String command, String executeResultLog){
-        this.userPrompt = userPrompt;
+    public ExecutionHistory(String role, String prompt, String command, String executeResultLog){
+        this.role = role;
+        this.prompt = prompt;
         this.command = command;
         this.executeResultLog = executeResultLog;
     }
 
-    public String getUserPrompt() {
-        return userPrompt;
+    public String getRole() {
+        return role;
     }
 
-    public void setUserPrompt(String userPrompt) {
-        this.userPrompt = userPrompt;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPrompt() {
+        return prompt;
+    }
+
+    public void setPrompt(String prompt) {
+        this.prompt = prompt;
     }
 
     public String getCommand() {
