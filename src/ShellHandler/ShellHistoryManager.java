@@ -17,9 +17,10 @@ public class ShellHistoryManager {
             }
             String stdOut = "";
             System.out.println(openaiText);
-            //MessageManager.displayMessages(executionHistoryList);
             stdOut = ScriptExecuter.executeScript(scriptPath, openaiText, false);
-
+            if(stdOut.isEmpty()){
+                return executionHistoryList;
+            }
             executionHistoryList.add(new ExecutionHistory("assistant", "", openaiText, ""));
             executionHistoryList.add(new ExecutionHistory("user", "",stdOut,""));
         }

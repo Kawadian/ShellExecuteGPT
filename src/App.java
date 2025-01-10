@@ -14,7 +14,7 @@ public class App {
             OpenaiRequester openaiRequester = new OpenaiRequester();
             String apiKey = openaiRequester.getApiKey();
             Scanner scanner = new Scanner(System.in);
-            System.out.println("要望を入力");
+            System.out.print("要望を入力: ");
             String userPrompt = scanner.nextLine();
             String systemPrompt = "これからあなたにはユーザーの入力、場合によっては追加でコマンドの実行結果が渡されます。あなたはユーザーの入力に答えるためにシェルスクリプトを生成してください。これ以上実行するコマンドがないと考えられる場合は「exit」と出力してください";
             List<ExecutionHistory> executionHistories = new ArrayList<>();
